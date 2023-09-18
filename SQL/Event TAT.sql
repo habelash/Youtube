@@ -6,11 +6,11 @@ CREATE TABLE HOLDTIMETAT(
     EVENT_NAME VARCHAR(20)
 );
 
-INSERT INTO HOLDTIMETAT 
-VALUES 
-    (1001,'2023-07-21','Event Start')
-INSERT INTO HOLDTIMETAT 
-VALUES 
+INSERT INTO HOLDTIMETAT
+VALUES
+    (1001, '2023-07-21', 'Event Start')
+INSERT INTO HOLDTIMETAT
+VALUES
     (1001, '2023-07-22', 'Hold')
 INSERT INTO HOLDTIMETAT
 VALUES
@@ -38,6 +38,7 @@ VALUES
 
 SELECT * FROM HOLDTIMETAT;
 
+--Step 1: - Get all the Events between start and end event
 
 SELECT 
     * 
@@ -80,6 +81,7 @@ WHERE EVENT_DATE
             )
         )
 
+-- Step 2 :- Fetch the Hold and Released date to calculate the date difference
 
 SELECT
     APP_NO,
@@ -91,7 +93,7 @@ WHERE
     EVENT_NAME IN ('Hold', 'Released')
 ORDER BY 1,2
 
-
+-- Step 3 :- Find the number of time the Hold event was triggered and calculate the datedifference between Hold and Released date
 
 SELECT 
     A.*, 
@@ -107,4 +109,6 @@ FROM
             LEAD (EVENT_DATE) OVER (PARTITION BY APP_NO ORDER BY EVENT_DATE ASC) NEXT_PEND_STATE_TIME
         FROM #PEND_DATE
     ) A
-    WHERE EVENT_NAME = 'Hold' AND NEXT_PEND_STATE = 'Released'
+WHERE 
+    EVENT_NAME = 'Hold' 
+    AND NEXT_PEND_STATE = 'Released'
