@@ -86,9 +86,11 @@ WHERE
     EVENT_NAME = 'Hold' 
     AND NEXT_PEND_STATE = 'Released'
 ```
+![Events](SQL/Images/Events.png)
+
 > Result :
 
-![Event TAT Result](SQL/Event_TAT.png)
+![Event TAT Result](SQL/Images/Event_TAT.png)
 
 </details>
 
@@ -128,7 +130,9 @@ ON H1.APP_NO = D1.APP_NO
 LEFT JOIN #END_DATE D2
 ON H1.APP_NO = D2.APP_NO
 ```
+![Events](SQL/Images/Events.png)
+
 > Result :
 
-![Row to Column](SQL/Row_to_column.png)
+![Row to Column](SQL/Images/Row_to_column.png)
 </details>
