@@ -1,3 +1,8 @@
+# SQL Code Explanations
+
+<details>
+    <summary>1. Event TAT SQL logic </summary>
+
 ## SQl query to find the date time difference between two events
 
 > Please refer "Events TAT.sql" for the code used for this example. 
@@ -81,4 +86,49 @@ WHERE
     EVENT_NAME = 'Hold' 
     AND NEXT_PEND_STATE = 'Released'
 ```
-<embed src="SQL/Eventtat.pdf" width="500" height="375" type="application/pdf">
+> Result :
+
+![Event TAT Result](SQL/Event_TAT.png)
+
+</details>
+
+<details>
+    <summary>2. Row to Column SQL Logic </summary>
+
+### Fetch and save the event start date into a temp table
+
+```SQL
+SELECT  
+    APP_NO, 
+    EVENT_DATE AS EVENT_START_DATE
+INTO #START_DATE
+FROM HOLDTIMETAT
+WHERE EVENT_NAME IN ('Event Start');
+```
+### Fetch and save the event end date into a temp table
+
+```SQL
+SELECT
+    APP_NO,
+    EVENT_DATE AS EVENT_END_DATE
+INTO #END_DATE
+FROM HOLDTIMETAT
+WHERE EVENT_NAME IN('Event End');
+```
+### Joing the temp tables with the main table with the application number to get the data in the required format
+
+```SQL
+SELECT 
+    DISTINCT H1.APP_NO,
+    EVENT_START_DATE,
+    EVENT_END_DATE
+FROM HOLDTIMETAT H1
+LEFT JOIN #START_DATE D1
+ON H1.APP_NO = D1.APP_NO
+LEFT JOIN #END_DATE D2
+ON H1.APP_NO = D2.APP_NO
+```
+> Result :
+
+![Row to Column](SQL/Row_to_column.png)
+</details>
